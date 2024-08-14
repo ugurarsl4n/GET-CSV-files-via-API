@@ -9,6 +9,7 @@
       "TodoApi/1.0.0": {
         "dependencies": {
           "CsvHelper": "33.0.1",
+          "Microsoft.AspNetCore.JsonPatch": "7.0.0",
           "Microsoft.EntityFrameworkCore": "8.0.7",
           "Microsoft.EntityFrameworkCore.Design": "8.0.7",
           "Microsoft.EntityFrameworkCore.InMemory": "8.0.7",
@@ -604,6 +605,18 @@
           }
         }
       },
+      "Microsoft.AspNetCore.JsonPatch/7.0.0": {
+        "dependencies": {
+          "Microsoft.CSharp": "4.7.0",
+          "Newtonsoft.Json": "13.0.3"
+        },
+        "runtime": {
+          "lib/net7.0/Microsoft.AspNetCore.JsonPatch.dll": {
+            "assemblyVersion": "7.0.0.0",
+            "fileVersion": "7.0.22.51819"
+          }
+        }
+      },
       "Microsoft.AspNetCore.Razor.Language/6.0.24": {
         "runtime": {
           "lib/netstandard2.0/Microsoft.AspNetCore.Razor.Language.dll": {
@@ -1066,7 +1079,7 @@
           }
         }
       },
-      "Microsoft.CSharp/4.5.0": {},
+      "Microsoft.CSharp/4.7.0": {},
       "Microsoft.Data.SqlClient/5.1.5": {
         "dependencies": {
           "Azure.Identity": "1.10.3",
@@ -1370,7 +1383,7 @@
       },
       "Microsoft.IdentityModel.Tokens/6.35.0": {
         "dependencies": {
-          "Microsoft.CSharp": "4.5.0",
+          "Microsoft.CSharp": "4.7.0",
           "Microsoft.IdentityModel.Logging": "6.35.0",
           "System.Security.Cryptography.Cng": "5.0.0"
         },
@@ -2346,6 +2359,13 @@
       "path": "humanizer.core.zh-hant/2.14.1",
       "hashPath": "humanizer.core.zh-hant.2.14.1.nupkg.sha512"
     },
+    "Microsoft.AspNetCore.JsonPatch/7.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-svHQiUvLNdI2nac68WNQHNo/ZWyavFpt3Oip09QRnWeFqG9iyakKiNLavXr6KE8y7KxEXZNld96KQYbKz8SJMQ==",
+      "path": "microsoft.aspnetcore.jsonpatch/7.0.0",
+      "hashPath": "microsoft.aspnetcore.jsonpatch.7.0.0.nupkg.sha512"
+    },
     "Microsoft.AspNetCore.Razor.Language/6.0.24": {
       "type": "package",
       "serviceable": true,
@@ -2451,12 +2471,12 @@
       "path": "microsoft.codeanalysis.workspaces.common/4.8.0",
       "hashPath": "microsoft.codeanalysis.workspaces.common.4.8.0.nupkg.sha512"
     },
-    "Microsoft.CSharp/4.5.0": {
+    "Microsoft.CSharp/4.7.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-kaj6Wb4qoMuH3HySFJhxwQfe8R/sJsNJnANrvv8WdFPMoNbKY5htfNscv+LHCu5ipz+49m2e+WQXpLXr9XYemQ==",
-      "path": "microsoft.csharp/4.5.0",
-      "hashPath": "microsoft.csharp.4.5.0.nupkg.sha512"
+      "sha512": "sha512-pTj+D3uJWyN3My70i2Hqo+OXixq3Os2D1nJ2x92FFo6sk8fYS1m1WLNTs0Dc1uPaViH0YvEEwvzddQ7y4rhXmA==",
+      "path": "microsoft.csharp/4.7.0",
+      "hashPath": "microsoft.csharp.4.7.0.nupkg.sha512"
     },
     "Microsoft.Data.SqlClient/5.1.5": {
       "type": "package",

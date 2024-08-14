@@ -9,6 +9,8 @@ using TodoApi.Models;
 using CsvHelper;
 using CsvHelper.Configuration;
 using System.Globalization;
+using Microsoft.AspNetCore.JsonPatch;
+
 
 namespace TodoApi.Controllers
 {
@@ -64,6 +66,192 @@ namespace TodoApi.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+         [HttpGet("users/{id}")]
+public IActionResult GetUser(int id)
+{
+    var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "veriler.csv");
+    IEnumerable<TodoItem> users;
+
+    try
+    {
+        // CSV dosyasını oku ve verileri al
+        using (var reader = new StreamReader(path))
+        using (var csv = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture)))
+        {
+            users = csv.GetRecords<TodoItem>().ToList();
+        }
+
+        // Belirli bir ID'ye sahip kullanıcıyı bul
+        var user = users.FirstOrDefault(u => u.Id == id);
+        if (user == null)
+        {
+            return NotFound($"User with ID {id} not found.");
+        }
+
+        return Ok(user);
+    }
+    catch (Exception ex)
+    {
+        return StatusCode(500, $"Internal server error: {ex.Message}");
+    }
+}
+        [HttpDelete("users/{id}")]
+public IActionResult DeleteUser(int id)
+{
+    var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "veriler.csv");
+    List<TodoItem> users;
+
+    try
+    {
+        // CSV dosyasını oku ve verileri al
+        using (var reader = new StreamReader(path))
+        using (var csv = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture)))
+        {
+            users = csv.GetRecords<TodoItem>().ToList();
+        }
+
+        // Silinmek istenen kaydı bul
+        var userToDelete = users.FirstOrDefault(u => u.Id == id);
+        if (userToDelete == null)
+        {
+            return NotFound($"User with ID {id} not found.");
+        }
+
+        // Kaydı listeden çıkar
+        users.Remove(userToDelete);
+
+        // Güncellenmiş veriyi tekrar CSV dosyasına yaz
+        using (var writer = new StreamWriter(path))
+        using (var csv = new CsvWriter(writer, new CsvConfiguration(CultureInfo.InvariantCulture)))
+        {
+            csv.WriteRecords(users);
+        }
+
+        return NoContent(); // Başarılı silme işleminde 204 No Content döndürülür
+    }
+    catch (Exception ex)
+    {
+        return StatusCode(500, $"Internal server error: {ex.Message}");
+    }
+}
+[HttpPut("users/{id}")]
+public IActionResult UpdateUser(int id, [FromBody] TodoItem updatedUser)
+{
+    var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "veriler.csv");
+    List<TodoItem> users;
+
+    try
+    {
+        // CSV dosyasını oku ve verileri al
+        using (var reader = new StreamReader(path))
+        using (var csv = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture)))
+        {
+            users = csv.GetRecords<TodoItem>().ToList();
+        }
+
+        // Güncellenecek kaydı bul
+        var userToUpdate = users.FirstOrDefault(u => u.Id == id);
+        if (userToUpdate == null)
+        {
+            return NotFound($"User with ID {id} not found.");
+        }
+
+        // Kaydı güncelle
+        userToUpdate.Name = updatedUser.Name;
+        userToUpdate.IsComplete = updatedUser.IsComplete;
+
+        // Güncellenmiş veriyi tekrar CSV dosyasına yaz
+        using (var writer = new StreamWriter(path))
+        using (var csv = new CsvWriter(writer, new CsvConfiguration(CultureInfo.InvariantCulture)))
+        {
+            csv.WriteRecords(users);
+        }
+
+        return NoContent(); // Başarılı güncelleme işleminde 204 No Content döndürülür
+    }
+    catch (Exception ex)
+    {
+        return StatusCode(500, $"Internal server error: {ex.Message}");
+    }
+}
+[HttpPatch("users/{id}")]
+public IActionResult PatchUser(int id, [FromBody] JsonPatchDocument<TodoItem> patchDoc)
+{
+    var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "veriler.csv");
+    List<TodoItem> users;
+
+    try
+    {
+        // CSV dosyasını oku ve verileri al
+        using (var reader = new StreamReader(path))
+        using (var csv = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture)))
+        {
+            users = csv.GetRecords<TodoItem>().ToList();
+        }
+
+        // Güncellenecek kaydı bul
+        var userToPatch = users.FirstOrDefault(u => u.Id == id);
+        if (userToPatch == null)
+        {
+            return NotFound($"User with ID {id} not found.");
+        }
+
+        // Kaydı patch ile güncelle
+        patchDoc.ApplyTo(userToPatch);
+
+        // Güncellenmiş veriyi tekrar CSV dosyasına yaz
+        using (var writer = new StreamWriter(path))
+        using (var csv = new CsvWriter(writer, new CsvConfiguration(CultureInfo.InvariantCulture)))
+        {
+            csv.WriteRecords(users);
+        }
+
+        return NoContent(); // Başarılı güncelleme işleminde 204 No Content döndürülür
+    }
+    catch (Exception ex)
+    {
+        return StatusCode(500, $"Internal server error: {ex.Message}");
+    }
+}
+[HttpPost("users")]
+public IActionResult CreateUser([FromBody] TodoItem newUser)
+{
+    var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "veriler.csv");
+    List<TodoItem> users;
+
+    try
+    {
+        // CSV dosyasını oku ve mevcut verileri al
+        using (var reader = new StreamReader(path))
+        using (var csv = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture)))
+        {
+            users = csv.GetRecords<TodoItem>().ToList();
+        }
+
+        // Yeni kullanıcının ID'sinin benzersiz olduğundan emin ol
+        if (users.Any(u => u.Id == newUser.Id))
+        {
+            return BadRequest($"User with ID {newUser.Id} already exists.");
+        }
+
+        // Yeni kullanıcıyı listeye ekle
+        users.Add(newUser);
+
+        // Güncellenmiş veriyi tekrar CSV dosyasına yaz
+        using (var writer = new StreamWriter(path))
+        using (var csv = new CsvWriter(writer, new CsvConfiguration(CultureInfo.InvariantCulture)))
+        {
+            csv.WriteRecords(users);
+        }
+
+        // 201 Created ve yeni kaydın URL'si ile birlikte döndür
+        return CreatedAtAction(nameof(CreateUser), new { id = newUser.Id }, newUser);
+    }
+    catch (Exception ex)
+    {
+        return StatusCode(500, $"Internal server error: {ex.Message}");
+    }
+}
          
 
         // PUT: api/TodoItems/5

@@ -256,3 +256,5 @@ d:\vscode\Webapi\TodoApi\bin\Debug\net8.0\MySqlConnector.dll
 d:\vscode\Webapi\TodoApi\bin\Debug\net8.0\Pomelo.EntityFrameworkCore.MySql.dll
 d:\vscode\Webapi\TodoApi\bin\Debug\net8.0\CsvHelper.dll
 d:\vscode\Webapi\TodoApi\bin\Debug\net8.0\TodoApi.staticwebassets.runtime.json
+d:\vscode\Webapi\TodoApi\obj\Debug\net8.0\TodoApi.sourcelink.json
+d:\vscode\Webapi\TodoApi\bin\Debug\net8.0\Microsoft.AspNetCore.JsonPatch.dll
