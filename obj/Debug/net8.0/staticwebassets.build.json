@@ -1,0 +1,39 @@
+{
+  "Version": 1,
+  "Hash": "Dt4BKFBAcdA2fmkPGsjCSalbACnbj4FC1epwmdz8iGI=",
+  "Source": "TodoApi",
+  "BasePath": "_content/TodoApi",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "TodoApi\\wwwroot",
+      "Source": "TodoApi",
+      "ContentRoot": "d:\\vscode\\Webapi\\TodoApi\\wwwroot\\",
+      "BasePath": "_content/TodoApi",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "d:\\vscode\\Webapi\\TodoApi\\wwwroot\\veriler.csv",
+      "SourceId": "TodoApi",
+      "SourceType": "Discovered",
+      "ContentRoot": "d:\\vscode\\Webapi\\TodoApi\\wwwroot\\",
+      "BasePath": "_content/TodoApi",
+      "RelativePath": "veriler.csv",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\veriler.csv"
+    }
+  ]
+}
